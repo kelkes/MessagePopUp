@@ -8,7 +8,6 @@ QT       += core gui
 
 TARGET = MessagePopup
 TEMPLATE = app
-CONFIG += static
 
 SOURCES += main.cpp\
         MainWindow.cpp
@@ -16,3 +15,6 @@ SOURCES += main.cpp\
 HEADERS  += MainWindow.h
 
 FORMS    += MainWindow.ui
+
+OTHER_FILES += \
+    config.ini

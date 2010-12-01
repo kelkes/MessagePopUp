@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QKeyEvent>
 
 namespace Ui {
     class MainWindow;
@@ -16,8 +17,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-protected:
-    bool event(QEvent* event);
+protected:   
+    void keyPressEvent(QKeyEvent* event);   
 
 private:
     Ui::MainWindow *ui;
