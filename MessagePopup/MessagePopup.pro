@@ -18,3 +18,20 @@ FORMS    += MainWindow.ui
 
 OTHER_FILES += \
     config.ini
+
+CURR_CONFIG = release
+
+contains( CONFIG, debug ) {
+        CURR_CONFIG = debug
+}
+
+DESTDIR_COPY = $$PWD/$$CURR_CONFIG
+
+copy_config.commands = xcopy \
+    /F \
+    /Y \
+    config.ini \
+    "\"$$DESTDIR_COPY"\"
+
+POST_TARGETDEPS += copy_config
+QMAKE_EXTRA_TARGETS += copy_config
