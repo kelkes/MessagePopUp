@@ -25,6 +25,10 @@ contains( CONFIG, debug ) {
         CURR_CONFIG = debug
 }
 
+contains( CONFIG, release ) {
+        CURR_CONFIG = release
+}
+
 DESTDIR_COPY = $$PWD/$$CURR_CONFIG
 
 copy_config.commands = xcopy \
