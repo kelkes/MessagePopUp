@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QTime>
+#include <QList>
 
 namespace Ui {
     class MainWindow;
@@ -18,11 +20,16 @@ public:
     ~MainWindow();
 
 protected:   
-    void keyPressEvent(QKeyEvent* event);   
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     Ui::MainWindow *ui;
-    QTimer* _timer;
+    QTimer* _timer;    
+    QList<QTime> _ticks;
+    int _tickIdx;
+    QTime _nextTick;
+    QTime _start;
+    QTime _end;
 
 
 private slots:
