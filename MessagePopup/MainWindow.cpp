@@ -93,7 +93,6 @@ MainWindow::~MainWindow()
 void MainWindow::keyPressEvent(QKeyEvent* event) {
 
     if (event->key() == Qt::Key_F7) {
-
         this->close();
     } else {
         this->hide();
@@ -102,12 +101,16 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
     QWidget::keyPressEvent(event);
 }
 
+void MainWindow::mousePressEvent(QMouseEvent* event) {
+    this->hide();
+    QWidget::mousePressEvent(event);
+}
+
 void MainWindow::timeout() {
 
     QTime currentTime = QTime::currentTime();
 
-    qDebug() << "Timeout: " << currentTime.toString();
-    qDebug() << "NextTick: " << _nextTick.toString();
+    qDebug() << "Timeout: " << currentTime.toString();    
 
     if (( _start > currentTime ) && (_end < currentTime)) {
         qDebug() << "Not in active time";
@@ -123,11 +126,22 @@ void MainWindow::timeout() {
             _tickIdx = 0;
         }
         _nextTick = _ticks.at(_tickIdx);
+        qDebug() << "NextTick: " << _nextTick.toString();
 
         show();
         raise();
         activateWindow();
         raise();
+    } else  {
+        while ((_nextTick.hour() < currentTime.hour()) ||
+               ((_nextTick.hour() == currentTime.hour()) && (_nextTick.minute() < currentTime.minute()))) {
+            _tickIdx++;
+            if (_tickIdx > _ticks.count()) {
+                _tickIdx = 0;
+            }
+            _nextTick = _ticks.at(_tickIdx);
+            qDebug() << "NextTick: " << _nextTick.toString();
+        }
     }
 
 
