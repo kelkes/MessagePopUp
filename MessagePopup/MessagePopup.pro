@@ -17,7 +17,8 @@ HEADERS  += MainWindow.h
 FORMS    += MainWindow.ui
 
 OTHER_FILES += \
-    config.ini
+    config.ini \
+    Temperaturkontrolle.bmp
 
 CURR_CONFIG = release
 
@@ -37,5 +38,14 @@ copy_config.commands = xcopy \
     config.ini \
     "\"$$DESTDIR_COPY"\"
 
+copy_image.commands = xcopy \
+    /F \
+    /Y \
+    Temperaturkontrolle.bmp \
+    "\"$$DESTDIR_COPY"\"
+
 POST_TARGETDEPS += copy_config
 QMAKE_EXTRA_TARGETS += copy_config
+
+POST_TARGETDEPS += copy_image
+QMAKE_EXTRA_TARGETS += copy_image

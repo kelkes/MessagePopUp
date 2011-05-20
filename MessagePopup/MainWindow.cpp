@@ -27,7 +27,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QString background = settings->value("Color/background","darkred").toString();
     QString foreground = settings->value("Color/foreground","yellow").toString();
     QString logoFileName = settings->value("Message/logo","").toString();
+    int fontSize = settings->value("Message/size",24).toInt();
+    QString fontFamily = settings->value("Message/font","MS Shell Dlg 2").toString();
+
+
+
     delete settings;
+
 
     _start = QTime::fromString(startTimeString+":00");
     qDebug() << "Start: " << _start.toString();
@@ -50,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+
+
     if ((logoFileName == "") || (!QFile::exists(logoFileName))) {
         ui->logo->setVisible(false);
     } else {
@@ -71,13 +79,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label->setStyleSheet(foregroundStyleSheet);
 
 
-    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
-    //this->setWindowFlags(Qt::CustomizeWindowHint); //Set window with no title bar
+    this->setWindowFlags(Qt::WindowStaysOnTopHint);
+    this->setWindowFlags(Qt::WindowTitleHint); //Set window with no title bar
+    this->setWindowFlags(Qt::CustomizeWindowHint); //Set window with no title bar
     //this->setWindowFlags(Qt::Popup);
-    //this->setWindowFlags(Qt::FramelessWindowHint); //Set a frameless window
-
+    this->setWindowFlags(Qt::FramelessWindowHint); //Set a frameless window
     ui->label->setText(text);
     ui->label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+    QFont font(fontFamily,fontSize);
+    ui->label->setFont(font);
 
     _timer = new QTimer(this);
     _timer->setInterval(check);
