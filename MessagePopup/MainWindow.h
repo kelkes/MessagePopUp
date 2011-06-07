@@ -22,20 +22,27 @@ public:
 protected:   
     void keyPressEvent(QKeyEvent* event);
     void mousePressEvent(QMouseEvent* event);
-
-
+    bool eventFilter(QObject *obj, QEvent *event);
 private:
     Ui::MainWindow *ui;
-    QTimer* _timer;    
+    QTimer* _timer;
+    QTimer* _popUpTimer;
+
     QList<QTime> _ticks;
     int _tickIdx;
     QTime _nextTick;
     QTime _start;
     QTime _end;
+    int _popUpCount;
+    int _operationMode;
+
+    void showWindow();
 
 
 private slots:
     void timeout();
+    void popUpTimeout();
+
 };
 
 #endif // MAINWINDOW_H
